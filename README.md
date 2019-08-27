@@ -1,8 +1,8 @@
-# Brainfuck
+#Brainfuck
 
 Brainfuck is a brainfuck interpreter written in C.
 
-## Argument options
+##Argument options
 
 Argument|Description
 -|-
@@ -12,11 +12,11 @@ Argument|Description
 `-p`|Prompt mode of the verbose mode. You have to press Enter to pass from step to step. Force verbose mode.
 `-m "memory in bytes"`|Memory size in bytes (20 bytes by default).
 
-## Usage
+##Usage
 
 `./brainfuck` : prints help.
 `./brainfuck -i "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+."` : prints `Hello World!`.
 
-## Licence
+##Licence
 
 Distributed under CC-BY Licence by Valentin Lageard (valentin.lageard.pro@gmail.com).
