@@ -15,6 +15,7 @@ Argument|Description
 ## Usage
 
 `./brainfuck` : prints help.
+
 `./brainfuck -i "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+."` : prints `Hello World!`.
 
 ## Licence
