@@ -1,8 +1,8 @@
-#Brainfuck
+# Brainfuck
 
 Brainfuck is a brainfuck interpreter written in C.
 
-##Argument options
+## Argument options
 
 Argument|Description
 -|-
@@ -13,11 +13,12 @@ Argument|Description
 `-m "memory in bytes"`|Memory size in bytes (20 bytes by default).
 `-d`|Prints the decimal value of each character in the resulting string separated with a space.
 
-##Usage
+## Usage
 
 `./brainfuck` : prints help.
+
 `./brainfuck -i "++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+."` : prints `Hello World!`.
 
-##Licence
+## Licence
 
 Distributed under CC-BY Licence by Valentin Lageard (valentin.lageard.pro@gmail.com).
