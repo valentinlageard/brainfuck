@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 void print_bytes(unsigned char *bytes_start, unsigned int size, int pos, unsigned char *str, char instruction)
 {
@@ -24,4 +25,17 @@ void print_help(void)
   printf("\t-m \"memory in bytes\" : Memory size (20 bytes by default).\n");
   printf("\nTry these instructions for instance : \"++++++++[>++++[>++>+++>+++>+<<<<-]>+>+>->>+[<]<-]>>.>---.+++++++..+++.>>.<-.<.+++.------.--------.>>+.\"\n");
   printf("\nDistributed under CC-BY Licence by Valentin Lageard (valentin.lageard.pro@gmail.com).\n");
+}
+
+void decimal_print(unsigned char *str)
+{
+  int i = 0;
+
+  while (str[i])
+  {
+    printf("%d", str[i]);
+    if (i != strlen(str) - 1)
+      printf(" ");
+    i++;
+  }
 }

@@ -10,10 +10,11 @@ int main(int argc, char **argv)
 	int verbose = 0;
 	int speed = 50;
 	int prompt = 0;
-	char *instructions = NULL; //= "+++++++++++++++++++++++++++++++++++++.";
+	int decimal_print = 0;
+	char *instructions = NULL;
 	char opt;
 
-	while((opt = getopt(argc, argv, "i:s:m:vp")) != -1)
+	while((opt = getopt(argc, argv, "i:s:m:dvp")) != -1)
 	{
 		switch(opt)
 		{
@@ -33,6 +34,9 @@ int main(int argc, char **argv)
 			case 'm':
 				memory = atoi(optarg);
 				break;
+			case 'd':
+				decimal_print = 1;
+				break;
 			case ':':
 				printf("option needs a value\n");
 				break;
@@ -42,7 +46,7 @@ int main(int argc, char **argv)
 		}
 	}
 	if (instructions)
-		brainfuck(instructions, memory, verbose, speed, prompt);
+		brainfuck(instructions, memory, verbose, speed, prompt, decimal_print);
 	else
 		print_help();
 	return 0;

@@ -11,6 +11,7 @@ Argument|Description
 `-s "speed in ms"` |Speed of the verbose mode in ms (50ms by default).
 `-p`|Prompt mode of the verbose mode. You have to press Enter to pass from step to step. Force verbose mode.
 `-m "memory in bytes"`|Memory size in bytes (20 bytes by default).
+`-d`|Prints the decimal value of each character in the resulting string separated with a space.
 
 ##Usage
 

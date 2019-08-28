@@ -1,6 +1,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "brainfuck.h"
 
 unsigned char *initialize_bytes(unsigned int size)
@@ -18,30 +19,15 @@ unsigned char *initialize_bytes(unsigned int size)
     return (bytes);
 }
 
-unsigned char *initialize_str(char *instructions)
+char *append_alloc(char *str, char c)
 {
-    unsigned char *str;
-    int i = 0;
-    int char_count = 0;
-
-    while (instructions[i])
-    {
-        if (instructions[i] == '.')
-            char_count++;
-        i++;
-    }
-    if (!(str = (unsigned char *)malloc((char_count + 1) * sizeof(char))))
-        str = NULL;
-    else
-    {
-        i = 0;
-        while (i <= char_count)
-        {
-            str[i] = 0;
-            i++;
-        }
-    }
-    return (str);
+    size_t len = strlen(str);
+    char *str2 = malloc(len + 1 + 1 ); /* one for extra char, one for trailing zero */
+    strcpy(str2, str);
+    str2[len] = c;
+    str2[len + 1] = '\0';
+    free(str);
+    return (str2);
 }
 
 int find_next_bracket(char *instructions, int i, unsigned int size)
@@ -80,19 +66,20 @@ int find_prev_bracket(char *instructions, int i)
     return (-1);
 }
 
-void brainfuck(char *instructions, int memory, int verbose, int speed, int prompt)
+void brainfuck(char *instructions, int memory, int verbose, int speed, int prompt, int d_print)
 {
     unsigned char *bytes;
     unsigned char *bytes_start;
-    unsigned char *str;
+    unsigned char *str = (char *)malloc(1);
+    str[0] = 0;
     unsigned int size = memory;
     int i = 0;
     int j = 0;
     int pos = 0;
+    int error = 0;
 
     bytes = initialize_bytes(size);
     bytes_start = bytes;
-    str = initialize_str(instructions);
     while (instructions[i])
     {
         if (instructions[i] == '>')
@@ -101,7 +88,8 @@ void brainfuck(char *instructions, int memory, int verbose, int speed, int promp
             if (pos == size)
             {
                 printf("Error : Memory overflow.\n");
-                return ;
+                error = 1;
+                break;
             }
             else
                 bytes++;
@@ -112,7 +100,8 @@ void brainfuck(char *instructions, int memory, int verbose, int speed, int promp
             if (pos < 0)
             {
                 printf("Error : Memory underflow.\n");
-                return ;
+                error = 1;
+                break;
             }
             else
                 bytes--;
@@ -123,18 +112,30 @@ void brainfuck(char *instructions, int memory, int verbose, int speed, int promp
             *bytes -= 1;
         else if (instructions[i] == '.')
         {
-            str[j] = *bytes;
+            str = append_alloc(str, *bytes);
             j++;
         }
         else if (instructions[i] == '[')
         {
             if (*bytes == 0)
                 i = find_next_bracket(instructions, i, size);
+                if (i == -1)
+                {
+                  printf("Error : Uncomplete bracket\n");
+                  error = 1;
+                  return ;
+                }
         }
         else if (instructions[i] == ']')
         {
             if (*bytes != 0)
                 i = find_prev_bracket(instructions, i);
+                if (i == -1)
+                {
+                  printf("Error : Uncomplete bracket\n");
+                  error = 1;
+                  return ;
+                }
         }
         if (verbose)
         {
@@ -146,7 +147,13 @@ void brainfuck(char *instructions, int memory, int verbose, int speed, int promp
         }
         i++;
     }
-    printf("%s\n", str);
+    if (!error)
+    {
+      if (d_print)
+        decimal_print(str);
+      else
+        printf("%s", str);
+    }
     free(bytes_start);
     free(str);
 }
